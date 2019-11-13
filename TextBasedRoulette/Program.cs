@@ -10,7 +10,7 @@ namespace TextBasedRoulette
     {
         static void Main(string[] args)
         {
-
+            //Monodevelop git push test
             SetTheme();
 
             DisplayMainMenu();
@@ -102,7 +102,7 @@ namespace TextBasedRoulette
         {
             DisplayScreenHeader("Roulette Rules");
 
-
+            Console.WriteLine("Greetings from Monodevelop.");
 
             DisplayContinuePrompt();
         }
