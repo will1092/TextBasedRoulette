@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace TextBasedRoulette
 {
     class Program
     {
         static void Main(string[] args)
         {
-            //Monodevelop git push test
+
             SetTheme();
 
             DisplayMainMenu();
@@ -58,22 +57,22 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        
+
                         break;
                     case "c":
-                        
+
                         break;
 
                     case "d":
-                        
+
                         break;
 
                     case "e":
-                        
+
                         break;
 
                     case "f":
-                        
+
                         break;
 
                     case "q":
@@ -102,7 +101,7 @@ namespace TextBasedRoulette
         {
             DisplayScreenHeader("Roulette Rules");
 
-            Console.WriteLine("Greetings from Monodevelop.");
+
 
             DisplayContinuePrompt();
         }
