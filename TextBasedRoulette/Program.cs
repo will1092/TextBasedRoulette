@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace TextBasedRoulette
 {
     // **************************************************
@@ -67,22 +66,22 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        
+
                         break;
                     case "c":
-                        
+
                         break;
 
                     case "d":
-                        
+
                         break;
 
                     case "e":
-                        
+
                         break;
 
                     case "f":
-                        
+
                         break;
 
                     case "q":
