@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextBasedRoulette
 {
+    // **************************************************
+    //
+    // Title: Text-based Roulette
+    // Description: A user interactive text-based game of roulette
+    // Author: Williams, Cody
+    // Dated Created: 11/10/2019
+    // Last Modified: 11/12/2019
+    //
+    // ************************************************** 
     class Program
     {
         static void Main(string[] args)
@@ -100,11 +109,67 @@ namespace TextBasedRoulette
         // 
         public static void DisplayRulesTextWall()
         {
-            DisplayScreenHeader("Roulette Rules");
+            DisplayScreenHeader("\tRoulette Rules");
 
+            Console.WriteLine("Place bets, based on where you think the ball may land.");
 
+            Console.WriteLine();
+
+            Console.WriteLine("Numbers can be bet on individually,");
+            Console.WriteLine("or in groups of numbers.");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Such groups of numbers are: ");
+
+            Console.WriteLine();
+
+            Console.WriteLine("\t* Even/Odd,");
+            Console.WriteLine("\t* Red/Black,");
+            Console.WriteLine("\t* 1-18/19-36,");
+            Console.WriteLine("\t* columns,");
+            Console.WriteLine("\t* dozens");
+
+            Console.WriteLine();
+
+            Console.WriteLine("The next page will describe each number group.");
 
             DisplayContinuePrompt();
+
+            DisplayScreenHeader("Roulette Rules");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\tEven/Odd");
+            Console.WriteLine();
+            Console.WriteLine("\t\tBet on whether the winning number will be even or odd.");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\tRed/Black");
+            Console.WriteLine();
+            Console.WriteLine("\t\tBet on the color of the winning number.");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\t1-18/19-36");
+            Console.WriteLine();
+            Console.WriteLine("\t\tBet on whether the winning number will be low (lower than 19) or high.");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\tColums");
+            Console.WriteLine();
+            Console.WriteLine("\t\tBet from which of the three columns will the winning numbers be.");
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\tDozens");
+            Console.WriteLine();
+            Console.WriteLine("\t\tBet on one of the three dozen that are found on the table.");
+
+            DisplayContinuePrompt();
+
         }
 
         #endregion
