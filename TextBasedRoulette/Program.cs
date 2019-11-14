@@ -36,6 +36,7 @@ namespace TextBasedRoulette
         {
             string menuChoice;
             bool quitApplication = false;
+            double cash;
 
             do
             {
@@ -66,7 +67,7 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-
+                        cash = DollarsToChips();
                         break;
                     case "c":
 
@@ -169,6 +170,22 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
+        }
+
+        //
+        // add user input dollars onto the table
+        //
+        public static double DollarsToChips()
+        {
+            double cash;
+            string userInput;
+
+            DisplayScreenHeader("Add more money to the table.");
+
+            Console.Write("How much money would you like to add? ");
+            cash = double.Parse(Console.ReadLine());       /// todo - Check for double, if not give feedback and loop
+
+            return cash;
         }
 
         #endregion
