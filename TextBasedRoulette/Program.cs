@@ -36,7 +36,8 @@ namespace TextBasedRoulette
         {
             string menuChoice;
             bool quitApplication = false;
-            double cash;
+            double cash = 0;
+            double cashToAdd;
 
             do
             {
@@ -67,7 +68,8 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        cash = DollarsToChips();
+                        cashToAdd = DollarsToChips(cash);
+                        cash = cash + cashToAdd;
                         break;
                     case "c":
 
@@ -175,17 +177,25 @@ namespace TextBasedRoulette
         //
         // add user input dollars onto the table
         //
-        public static double DollarsToChips()
+        public static double DollarsToChips(double cash)
         {
-            double cash;
-            string userInput;
+            double total;
+            double cashToAdd;
 
             DisplayScreenHeader("Add more money to the table.");
 
             Console.Write("How much money would you like to add? ");
-            cash = double.Parse(Console.ReadLine());       /// todo - Check for double, if not give feedback and loop
+            cashToAdd = double.Parse(Console.ReadLine());       /// todo - Check for double, if not give feedback and loop
 
-            return cash;
+            total = cash + cashToAdd;
+
+            Console.WriteLine($"{cashToAdd:C} has been added to your pool of betting money.");
+
+            Console.WriteLine($"Your new total is {total:C}");
+
+            DisplayContinuePrompt();
+
+            return total;
         }
 
         #endregion
