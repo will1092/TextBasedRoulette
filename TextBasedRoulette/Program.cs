@@ -21,15 +21,56 @@ namespace TextBasedRoulette
 
             SetTheme();
 
+            InstantiateResults();
+
             DisplayMainMenu();
 
             DisplayContinuePrompt();
         }
 
+
+
+    class Result
+    {
+        public int number { get; set; }
+        public string oddity { get; set; }
+        public string color { get; set; }
+        public string half { get; set; }
+        public string column { get; set; }
+        public string dozen { get; set; }
+
+    }
+
+        #region PROGRAM METHODS
+
         private static void SetTheme()
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+        }
+
+        // todo - create instantiateResulsts method to create each number
+        //        object from the Result class
+        public static void InstantiateResults()
+        {
+            Result number1 = new Result();
+            number1.number = 1;
+            number1.oddity = "odd";
+            number1.color = "red";
+            number1.half = "first";
+            number1.column = "first";
+            number1.dozen = "first";
+
+            Result number2 = new Result();
+            number2.number = 2;
+            number2.oddity = "even";
+            number2.color = "black";
+            number2.half = "first";
+            number2.column = "first";
+            number2.dozen = "first";
+
+
+
         }
 
         private static void DisplayMainMenu()
@@ -102,9 +143,6 @@ namespace TextBasedRoulette
 
             } while (!quitApplication);
         }
-
-
-        #region PROGRAM METHODS
 
         //
         // display rules of roulette
@@ -225,4 +263,6 @@ namespace TextBasedRoulette
 
         #endregion
     }
+
+
 }
