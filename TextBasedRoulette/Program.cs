@@ -12,7 +12,7 @@ namespace TextBasedRoulette
     // Description: A user interactive text-based game of roulette
     // Author: Williams, Cody
     // Dated Created: 11/10/2019
-    // Last Modified: 11/12/2019
+    // Last Modified: 11/22/2019
     //
     // ************************************************** 
     class Program
@@ -26,13 +26,8 @@ namespace TextBasedRoulette
 
             DisplayMainMenu();
 
-
             DisplayContinuePrompt();
         }
-
-
-
-
 
         #region PROGRAM METHODS
 
@@ -404,8 +399,8 @@ namespace TextBasedRoulette
                 //
                 // get the user's menu choice
                 //
-                Console.WriteLine("a) View Rules - WIP");
-                Console.WriteLine("b) Add Money to Pool - WIP");
+                Console.WriteLine("a) View Rules");
+                Console.WriteLine("b) Add Money to Pool");
                 Console.WriteLine("c) Place Bet - WIP");
                 Console.WriteLine("d) Remove Bet - WIP");
                 Console.WriteLine("e) Spin the Wheel - WIP");
@@ -429,7 +424,7 @@ namespace TextBasedRoulette
                         cash = cash + cashToAdd;
                         break;
                     case "c":
-
+                        PlaceBet(cash);
                         break;
 
                     case "d":
@@ -552,6 +547,74 @@ namespace TextBasedRoulette
             return total;
         }
 
+        public static void PlaceBet(int cash)
+        {
+            string menuChoice;
+            bool quitApplication = false;
+
+            do
+            {
+
+                DisplayScreenHeader("Place your bet");
+
+                //
+                // get the user's menu choice
+                //
+                Console.WriteLine("a) Bet on a specific number");
+                Console.WriteLine("b) Bet on oddity - WIP");
+                Console.WriteLine("c) Bet on color - WIP");
+                Console.WriteLine("d) Bet on half - WIP");
+                Console.WriteLine("e) Bet on column - WIP");
+                Console.WriteLine("f) Bet on dozen - WIP");
+                Console.WriteLine("q) Quit");
+                Console.Write("Enter Choice: ");
+                menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
+
+
+                //
+                // process user's choice
+                //
+                switch (menuChoice)
+                {
+                    case "a":
+                        BetOnNumber(cash);
+                        break;
+
+                    case "b":
+                        //BetOnOddity(cash);
+                        break;
+                    case "c":
+                        //BetOnColor(cash);
+                        break;
+
+                    case "d":
+                        //BetOnHalf(cash);
+                        break;
+
+                    case "e":
+                        //BetOnColumn(cash);
+                        break;
+
+                    case "f":
+                        //BetOnDozen(cash);
+                        break;
+
+                    case "q":
+                        quitApplication = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("\t**********************");
+                        Console.WriteLine("\tPlease indicate your choice with a letter.");
+                        Console.WriteLine("\t**********************");
+
+                        DisplayContinuePrompt();
+                        break;
+                }
+
+            } while (!quitApplication);
+        }
+
         public static int SpinTheWheel()
         {
             int ball;
@@ -566,6 +629,80 @@ namespace TextBasedRoulette
 
             return ball;
         }
+
+        #endregion
+
+        #region PLACEBET() METHODS
+
+        public static int BetOnNumber(int cash)
+        {
+            int bet;
+            int betAmount;
+            
+            DisplayScreenHeader("Bet on a number");
+
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("Place bet (1-36): ");
+            int.TryParse(Console.ReadLine(), out bet);
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on number {bet}.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
+            return bet;
+        }
+
+       /* public static string BetOnOddity(int cash)
+        {
+            string oddity;
+
+
+
+            return oddity;
+        }
+
+        public static string BetOnColor(int cash)
+        {
+            string color;
+
+
+
+            return color;
+        }
+
+        public static string BetOnHalf(int cash)
+        {
+            string half;
+
+
+
+            return half;
+        }
+
+        public static string BetOnColumn(int cash)
+        {
+            string column;
+
+
+
+            return column;
+        }
+
+        public static string BetOnDozen(int cash)
+        {
+            string dozen;
+
+
+
+            return dozen;
+        }
+        */
 
         #endregion
 
