@@ -547,6 +547,9 @@ namespace TextBasedRoulette
             return total;
         }
 
+        //
+        // menu system to place bets
+        //
         public static void PlaceBet(int cash)
         {
             string menuChoice;
