@@ -15,37 +15,37 @@ namespace TextBasedRoulette
         private string _column;
         private string _dozen;
 
-        public int Number
+        public int number
         {
             get { return _number; }
             set { _number = value; }
         }
 
-        public string Oddity
+        public string oddity
         {
             get { return _oddity; }
             set { _oddity = value; }
         }
 
-        public string Color
+        public string color
         {
             get { return _color; }
             set { _color = value; }
         }
 
-        public string Half
+        public string half
         {
             get { return _half; }
             set { _half = value; }
         }
 
-        public string Column
+        public string column
         {
             get { return _column; }
             set { _column = value; }
         }
 
-        public string Dozen
+        public string dozen
         {
             get { return _dozen; }
             set { _dozen = value; }

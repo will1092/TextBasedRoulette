@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace TextBasedRoulette
 {
     // **************************************************
@@ -41,8 +42,6 @@ namespace TextBasedRoulette
             Console.ForegroundColor = ConsoleColor.DarkGreen;
         }
 
-        // todo - create instantiateResulsts method to create each number
-        //        object from the Result class
         public static void InstantiateResults()
         {
             List<Result> results = new List<Result>();
@@ -51,42 +50,42 @@ namespace TextBasedRoulette
             // instantiate results
             //
             #region NEWRESULTS
-            Result number1 = newResult();
-            Result number2 = newResult();
-            Result number3 = newResult();
-            Result number4 = newResult();
-            Result number5 = newResult();
-            Result number6 = newResult();
-            Result number7 = newResult();
-            Result number8 = newResult();
-            Result number9 = newResult();
-            Result number10 = newResult();
-            Result number11 = newResult();
-            Result number12 = newResult();
-            Result number13 = newResult();
-            Result number14 = newResult();
-            Result number15 = newResult();
-            Result number16 = newResult();
-            Result number17 = newResult();
-            Result number18 = newResult();
-            Result number19 = newResult();
-            Result number20 = newResult();
-            Result number21 = newResult();
-            Result number22 = newResult();
-            Result number23 = newResult();
-            Result number24 = newResult();
-            Result number25 = newResult();
-            Result number26 = newResult();
-            Result number27 = newResult();
-            Result number28 = newResult();
-            Result number29 = newResult();
-            Result number30 = newResult();
-            Result number31 = newResult();
-            Result number32 = newResult();
-            Result number33 = newResult();
-            Result number34 = newResult();
-            Result number35 = newResult();
-            Result number36 = newResult();
+            Result number1 = new Result();
+            Result number2 = new Result();
+            Result number3 = new Result();
+            Result number4 = new Result();
+            Result number5 = new Result();
+            Result number6 = new Result();
+            Result number7 = new Result();
+            Result number8 = new Result();
+            Result number9 = new Result();
+            Result number10 = new Result();
+            Result number11 = new Result();
+            Result number12 = new Result();
+            Result number13 = new Result();
+            Result number14 = new Result();
+            Result number15 = new Result();
+            Result number16 = new Result();
+            Result number17 = new Result();
+            Result number18 = new Result();
+            Result number19 = new Result();
+            Result number20 = new Result();
+            Result number21 = new Result();
+            Result number22 = new Result();
+            Result number23 = new Result();
+            Result number24 = new Result();
+            Result number25 = new Result();
+            Result number26 = new Result();
+            Result number27 = new Result();
+            Result number28 = new Result();
+            Result number29 = new Result();
+            Result number30 = new Result();
+            Result number31 = new Result();
+            Result number32 = new Result();
+            Result number33 = new Result();
+            Result number34 = new Result();
+            Result number35 = new Result();
+            Result number36 = new Result();
             #endregion NEWRESULTS
 
             //
@@ -393,8 +392,9 @@ namespace TextBasedRoulette
         {
             string menuChoice;
             bool quitApplication = false;
-            double cash = 0;
-            double cashToAdd;
+            int cash = 0;
+            int cashToAdd;
+            int spinResult;
 
             do
             {
@@ -437,7 +437,7 @@ namespace TextBasedRoulette
                         break;
 
                     case "e":
-
+                        spinResult = SpinTheWheel();
                         break;
 
                     case "f":
@@ -531,16 +531,16 @@ namespace TextBasedRoulette
         //
         // add user input dollars onto the table
         //
-        public static double DollarsToChips(double cash)
+        public static int DollarsToChips(int cash)
         {
-            double total;
-            double cashToAdd;
+            int total;
+            int cashToAdd;
 
             DisplayScreenHeader("Add more money to the table.");
 
-            Console.Write("How much money would you like to add? ");
-            cashToAdd = double.Parse(Console.ReadLine());       /// todo - Check for double, if not give feedback and loop
-
+            Console.Write("How much money would you like to add? (whole dollars only) ");
+            cashToAdd = int.Parse(Console.ReadLine());       /// todo - Check for int, if not give feedback and loop
+                                                             /// todo - Check for positive number, if not give feedback and loop
             total = cash + cashToAdd;
 
             Console.WriteLine($"{cashToAdd:C} has been added to your pool of betting money.");
@@ -550,6 +550,21 @@ namespace TextBasedRoulette
             DisplayContinuePrompt();
 
             return total;
+        }
+
+        public static int SpinTheWheel()
+        {
+            int ball;
+
+            DisplayScreenHeader("The wheel has been spun");
+
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
+            Console.WriteLine($"The ball landed on {ball}");
+
+            DisplayContinuePrompt();
+
+            return ball;
         }
 
         #endregion
