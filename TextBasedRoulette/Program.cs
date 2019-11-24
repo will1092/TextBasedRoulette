@@ -584,22 +584,22 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        //BetOnOddity(cash);
+                        BetOnOddity(cash);
                         break;
                     case "c":
-                        //BetOnColor(cash);
+                        BetOnColor(cash);
                         break;
 
                     case "d":
-                        //BetOnHalf(cash);
+                        BetOnHalf(cash);
                         break;
 
                     case "e":
-                        //BetOnColumn(cash);
+                        BetOnColumn(cash);
                         break;
 
                     case "f":
-                        //BetOnDozen(cash);
+                        BetOnDozen(cash);
                         break;
 
                     case "q":
@@ -661,51 +661,130 @@ namespace TextBasedRoulette
             return bet;
         }
 
-       /* public static string BetOnOddity(int cash)
-        {
+         public static string BetOnOddity(int cash)
+         {
             string oddity;
+            int betAmount;   
 
+            DisplayScreenHeader("Bet on Odd or Even");
 
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("Even or odd?: ");
+            oddity = Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
 
             return oddity;
-        }
+         }
 
-        public static string BetOnColor(int cash)
-        {
+         public static string BetOnColor(int cash)
+         {
             string color;
+            int betAmount;
 
+            DisplayScreenHeader("Bet on Red or Black");
 
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("Even or odd?: ");
+            color = Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on {color}.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
 
             return color;
-        }
+         }
 
-        public static string BetOnHalf(int cash)
-        {
+         public static string BetOnHalf(int cash)
+         {
             string half;
+            int betAmount;
 
+            DisplayScreenHeader("Bet on first half or second half");
 
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("Which half? (first or second): ");
+            half = Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on the {half} half.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
 
             return half;
-        }
+         }
 
-        public static string BetOnColumn(int cash)
-        {
+         public static string BetOnColumn(int cash)
+         {
             string column;
+            int betAmount;
 
+            DisplayScreenHeader("Bet on a column");
 
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("First, second, or third?: ");
+            column = Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on the {column} column.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
 
             return column;
-        }
+         }
 
-        public static string BetOnDozen(int cash)
-        {
+         public static string BetOnDozen(int cash)
+         {
             string dozen;
+            int betAmount;
 
+            DisplayScreenHeader("Bet on a dozen");
 
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);
+
+            Console.WriteLine();
+            Console.Write("first, second, or third?: ");
+            dozen = Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on the {dozen} dozen.");
+
+            cash = cash - betAmount;
+
+            DisplayContinuePrompt();
 
             return dozen;
-        }
-        */
+         }
 
         #endregion
 
