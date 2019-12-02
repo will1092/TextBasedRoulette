@@ -12,7 +12,7 @@ namespace TextBasedRoulette
     // Description: A user interactive text-based game of roulette
     // Author: Williams, Cody
     // Dated Created: 11/10/2019
-    // Last Modified: 11/22/2019
+    // Last Modified: 12/01/2019
     //
     // ************************************************** 
     class Program
@@ -518,7 +518,7 @@ namespace TextBasedRoulette
 
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("\tColums");
+            Console.WriteLine("\tColumns");
             Console.WriteLine();
             Console.WriteLine("\t\tBet from which of the three columns will the winning numbers be.");
 
