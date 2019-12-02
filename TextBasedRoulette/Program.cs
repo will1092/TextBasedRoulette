@@ -22,7 +22,7 @@ namespace TextBasedRoulette
 
             SetTheme();
 
-            InstantiateResults();
+            Combinations();
 
             DisplayMainMenu();
 
@@ -37,14 +37,15 @@ namespace TextBasedRoulette
             Console.ForegroundColor = ConsoleColor.DarkGreen;
         }
 
-        public static void InstantiateResults()
+        public static void Combinations()
         {
-            List<Result> results = new List<Result>();
-
+            
+            
             //
             // instantiate results
             //
             #region NEWRESULTS
+            /*
             Result number1 = new Result();
             Result number2 = new Result();
             Result number3 = new Result();
@@ -81,12 +82,15 @@ namespace TextBasedRoulette
             Result number34 = new Result();
             Result number35 = new Result();
             Result number36 = new Result();
+            */
             #endregion NEWRESULTS
 
             //
             // set results property values
             //
+
             #region RESULTSPROPERTIES
+            /*
             number1.number = 1;
             number1.oddity = "odd";
             number1.color = "red";
@@ -338,12 +342,15 @@ namespace TextBasedRoulette
             number36.half = "second";
             number36.column = "third";
             number36.dozen = "third";
+            */
             #endregion RESULTSPROPERTIES
 
             //
             // add results to the list
             //
+
             #region ADDRESULTSTOLIST
+            /*
             results.Add(number1);
             results.Add(number2);
             results.Add(number3);
@@ -380,7 +387,9 @@ namespace TextBasedRoulette
             results.Add(number34);
             results.Add(number35);
             results.Add(number36);
+            */
             #endregion ADDRESULTSTOLIST
+
         }
 
         private static void DisplayMainMenu()
@@ -569,7 +578,7 @@ namespace TextBasedRoulette
                 Console.WriteLine("d) Bet on half - WIP");
                 Console.WriteLine("e) Bet on column - WIP");
                 Console.WriteLine("f) Bet on dozen - WIP");
-                Console.WriteLine("q) Quit");
+                Console.WriteLine("q) Back to Main Menu");
                 Console.Write("Enter Choice: ");
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
 
@@ -620,13 +629,94 @@ namespace TextBasedRoulette
 
         public static int SpinTheWheel()
         {
-            int ball;
-
             DisplayScreenHeader("The wheel has been spun");
+
+            int ball;
+            List<Result> results = new List<Result>();
 
             Random rnd = new Random();
             ball = rnd.Next(1, 37);
             Console.WriteLine($"The ball landed on {ball}");
+
+            //
+            // even or odd
+            //
+
+            if ((ball % 2 == 0) || ball == 0)
+            {
+                Console.WriteLine("\t Even");
+            }
+            else
+            {
+                Console.WriteLine("\t Odd");
+            }
+
+            //
+            // lists of colors
+            //
+            int[] red = new int[] { 1, 3, 5, 7, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
+            int[] black = new int[] { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
+
+            if (red.Contains(ball))
+            {
+                Console.WriteLine("\t Red");
+            }
+            else if (black.Contains(ball))
+            {
+                Console.WriteLine("\t Black");
+            }
+
+            //
+            // list of halves
+            //
+            if (ball <= 18)
+            {
+                Console.WriteLine("\t Low");
+            }
+            else
+            {
+                Console.WriteLine("\t High");
+            }
+
+            //
+            // lists of columns
+            //
+            int[] first = new int[] { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
+            int[] second = new int[] { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
+            int[] third = new int[] { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
+
+            if (first.Contains(ball))
+            {
+                Console.WriteLine("\t First Column");
+            }
+            else if (second.Contains(ball))
+            {
+                Console.WriteLine("\t Second Column");
+            }
+            else if (third.Contains(ball))
+            {
+                Console.WriteLine("\t Third Column");
+            }
+
+            //
+            // lists of dozens
+            //
+            int[] firstDozen = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            int[] secondDozen = new int[] { 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
+            int[] thirdDozen = new int[] { 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
+
+            if (firstDozen.Contains(ball))
+            {
+                Console.WriteLine("\t First Dozen");
+            }
+            else if (secondDozen.Contains(ball))
+            {
+                Console.WriteLine("\t Second Dozen");
+            }
+            else if (thirdDozen.Contains(ball))
+            {
+                Console.WriteLine("\t Third Dozen");
+            }
 
             DisplayContinuePrompt();
 
@@ -698,7 +788,7 @@ namespace TextBasedRoulette
             int.TryParse(Console.ReadLine(), out betAmount);
 
             Console.WriteLine();
-            Console.Write("Even or odd?: ");
+            Console.Write("Red or Black?: ");
             color = Console.ReadLine();
 
             Console.WriteLine();
