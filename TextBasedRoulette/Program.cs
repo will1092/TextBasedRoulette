@@ -398,7 +398,6 @@ namespace TextBasedRoulette
             bool quitApplication = false;
             int cash = 0;
             int cashToAdd;
-            int spinResult;
             int betAmount = 0;
 
             do
@@ -434,7 +433,7 @@ namespace TextBasedRoulette
                         cash = cash + cashToAdd;
                         break;
                     case "c":
-                        PlaceBet(cash);
+                        betAmount = PlaceBet(cash);
                         break;
 
                     case "d":
@@ -442,7 +441,7 @@ namespace TextBasedRoulette
                         break;
 
                     case "e":
-                        spinResult = SpinTheWheel(betAmount);
+                        SpinTheWheel(betAmount);
                         break;
 
                     case "f":
@@ -712,7 +711,7 @@ namespace TextBasedRoulette
             if (firstDozen.Contains(ball))
             {
                 Console.WriteLine("\t First Dozen");
-                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount}");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else if (secondDozen.Contains(ball))
             {
