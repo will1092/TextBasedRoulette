@@ -412,13 +412,11 @@ namespace TextBasedRoulette
                 Console.WriteLine("a) View Rules");
                 Console.WriteLine("b) Add Money to Pool");
                 Console.WriteLine("c) Place Bet - WIP");
-                Console.WriteLine("d) Remove Bet - WIP");
-                //Console.WriteLine("e) Spin the Wheel - WIP");
+                //Console.WriteLine("d) Spin the Wheel - WIP");
                 Console.WriteLine("f) Collect (Save Money to file) - WIP");
                 Console.WriteLine("q) Quit");
                 Console.Write("Enter Choice: ");
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
-
 
                 //
                 // process user's choice
@@ -437,11 +435,7 @@ namespace TextBasedRoulette
                         betAmount = PlaceBet(cash);
                         break;
 
-                    case "d":
-
-                        break;
-
-                    //case "e":
+                    //case "d":
                         //ball = SpinTheWheel(betAmount);
                         //break;
 
@@ -584,7 +578,6 @@ namespace TextBasedRoulette
                 Console.WriteLine("q) Back to Main Menu");
                 Console.Write("Enter Choice: ");
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
-
 
                 //
                 // process user's choice
@@ -770,30 +763,34 @@ namespace TextBasedRoulette
 
         public static string BetOnOddity(int cash, int ball, int betAmount)
         {
-            string oddity;
+            string oddity = "";
             int total;
             const int ratio = 2;
             bool ValidChoice = false;
 
-            DisplayScreenHeader("Bet on Odd or Even");
-            Console.WriteLine();
-            Console.Write("Even or odd?: ");
-            oddity = Console.ReadLine();
-
             Random rnd = new Random();
             ball = rnd.Next(1, 37);
 
-
+            DisplayScreenHeader("Bet on Odd or Even");
             Console.WriteLine();
-            Console.Write("How much would you like to bet?: ");
-            int.TryParse(Console.ReadLine(), out betAmount);    
-
-            Console.WriteLine();
-            Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");           
+            
+            while (!ValidChoice)
+            {
+                Console.Write("Even or odd?: ");
+                oddity = Console.ReadLine();
 
                 switch (oddity)
                 {
                     case "even":
+                        ValidChoice = true;
+
+                        Console.WriteLine();
+                        Console.Write("How much would you like to bet?: ");
+                        int.TryParse(Console.ReadLine(), out betAmount);
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");
+
                         if ((ball % 2 == 0) || ball == 0)
                         {
                             Console.WriteLine("\t Even");
@@ -816,21 +813,46 @@ namespace TextBasedRoulette
                         break;
 
                     case "odd":
-                        {
-                            Console.WriteLine("\t Odd");
-                            Console.WriteLine($"The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
-                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+                        ValidChoice = true;
 
-                            Console.WriteLine();
-                            Console.WriteLine($"Your total betting pool is now {total:C}");
-                        }
+                        Console.WriteLine();
+                        Console.Write("How much would you like to bet?: ");
+                        int.TryParse(Console.ReadLine(), out betAmount);
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        Console.WriteLine($"\t The ball landed on {ball}");
+                        total = cash + ratio * betAmount;
+
+                        Console.WriteLine();
+                        Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                        Console.WriteLine();
+                        Console.WriteLine($"\t Your total betting pool is now {total:C}");
+                        
                         break;
 
                     default:
                         Console.WriteLine("Invalid. Please choose \"even\" or \"odd\"");
                         break;
                 }
+            }
+
+
+
+            //Console.WriteLine();
+            //Console.Write("How much would you like to bet?: ");
+            //int.TryParse(Console.ReadLine(), out betAmount);    
+
+            //Console.WriteLine();
+            //Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");           
+
+                
 
 
             DisplayContinuePrompt();
