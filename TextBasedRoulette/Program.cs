@@ -399,6 +399,7 @@ namespace TextBasedRoulette
             int cash = 0;
             int cashToAdd;
             int betAmount = 0;
+            int ball;
 
             do
             {
@@ -412,7 +413,7 @@ namespace TextBasedRoulette
                 Console.WriteLine("b) Add Money to Pool");
                 Console.WriteLine("c) Place Bet - WIP");
                 Console.WriteLine("d) Remove Bet - WIP");
-                Console.WriteLine("e) Spin the Wheel - WIP");
+                //Console.WriteLine("e) Spin the Wheel - WIP");
                 Console.WriteLine("f) Collect (Save Money to file) - WIP");
                 Console.WriteLine("q) Quit");
                 Console.Write("Enter Choice: ");
@@ -440,9 +441,9 @@ namespace TextBasedRoulette
 
                         break;
 
-                    case "e":
-                        SpinTheWheel(betAmount);
-                        break;
+                    //case "e":
+                        //ball = SpinTheWheel(betAmount);
+                        //break;
 
                     case "f":
 
@@ -564,6 +565,7 @@ namespace TextBasedRoulette
             string menuChoice;
             bool quitApplication = false;
             int betAmount = 0;
+            int ball = 0;
 
             do
             {
@@ -594,7 +596,7 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        BetOnOddity(cash);
+                        BetOnOddity(cash, ball, betAmount);
                         break;
                     case "c":
                         BetOnColor(cash);
@@ -648,10 +650,12 @@ namespace TextBasedRoulette
             if ((ball % 2 == 0) || ball == 0)
             {
                 Console.WriteLine("\t Even");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else
             {
                 Console.WriteLine("\t Odd");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
 
             //
@@ -663,10 +667,12 @@ namespace TextBasedRoulette
             if (red.Contains(ball))
             {
                 Console.WriteLine("\t Red");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else if (black.Contains(ball))
             {
                 Console.WriteLine("\t Black");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
 
             //
@@ -675,10 +681,12 @@ namespace TextBasedRoulette
             if (ball <= 18)
             {
                 Console.WriteLine("\t Low");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else
             {
                 Console.WriteLine("\t High");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
 
             //
@@ -691,14 +699,17 @@ namespace TextBasedRoulette
             if (first.Contains(ball))
             {
                 Console.WriteLine("\t First Column");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else if (second.Contains(ball))
             {
                 Console.WriteLine("\t Second Column");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else if (third.Contains(ball))
             {
                 Console.WriteLine("\t Third Column");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
 
             //
@@ -716,10 +727,12 @@ namespace TextBasedRoulette
             else if (secondDozen.Contains(ball))
             {
                 Console.WriteLine("\t Second Dozen");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
             else if (thirdDozen.Contains(ball))
             {
                 Console.WriteLine("\t Third Dozen");
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {2 * betAmount:c}");
             }
 
             DisplayContinuePrompt();
@@ -755,29 +768,74 @@ namespace TextBasedRoulette
             return bet;
         }
 
-        public static string BetOnOddity(int cash)
+        public static string BetOnOddity(int cash, int ball, int betAmount)
         {
-        string oddity;
-        int betAmount;   
+            string oddity;
+            int total;
+            const int ratio = 2;
+            bool ValidChoice = false;
 
-        DisplayScreenHeader("Bet on Odd or Even");
+            DisplayScreenHeader("Bet on Odd or Even");
+            Console.WriteLine();
+            Console.Write("Even or odd?: ");
+            oddity = Console.ReadLine();
 
-        Console.WriteLine();
-        Console.Write("How much would you like to bet?: ");
-        int.TryParse(Console.ReadLine(), out betAmount);
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
 
-        Console.WriteLine();
-        Console.Write("Even or odd?: ");
-        oddity = Console.ReadLine();
 
-        Console.WriteLine();
-        Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");
+            Console.WriteLine();
+            Console.Write("How much would you like to bet?: ");
+            int.TryParse(Console.ReadLine(), out betAmount);    
 
-        cash = cash - betAmount;
+            Console.WriteLine();
+            Console.WriteLine($"You are betting {betAmount:C} on {oddity}.");           
 
-        DisplayContinuePrompt();
+                switch (oddity)
+                {
+                    case "even":
+                        if ((ball % 2 == 0) || ball == 0)
+                        {
+                            Console.WriteLine("\t Even");
+                            Console.WriteLine($"The ball landed on {ball}");
+                            total = cash + betAmount;
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
 
-        return oddity;
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "odd":
+                        {
+                            Console.WriteLine("\t Odd");
+                            Console.WriteLine($"The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your total betting pool is now {total:C}");
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid. Please choose \"even\" or \"odd\"");
+                        break;
+                }
+
+
+            DisplayContinuePrompt();
+
+            return oddity;
         }
 
         public static string BetOnColor(int cash)
