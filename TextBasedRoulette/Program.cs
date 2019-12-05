@@ -12,7 +12,7 @@ namespace TextBasedRoulette
     // Description: A user interactive text-based game of roulette
     // Author: Williams, Cody
     // Dated Created: 11/10/2019
-    // Last Modified: 12/04/2019
+    // Last Modified: 12/05/2019
     //
     // ************************************************** 
     class Program
@@ -573,8 +573,8 @@ namespace TextBasedRoulette
                 Console.WriteLine("b) Bet on oddity");
                 Console.WriteLine("c) Bet on color");
                 Console.WriteLine("d) Bet on half");
-                Console.WriteLine("e) Bet on column - WIP");
-                Console.WriteLine("f) Bet on dozen - WIP");
+                Console.WriteLine("e) Bet on column");
+                Console.WriteLine("f) Bet on dozen");
                 Console.WriteLine("q) Back to Main Menu");
                 Console.Write("Enter Choice: ");
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
@@ -600,11 +600,11 @@ namespace TextBasedRoulette
                         break;
 
                     case "e":
-                        BetOnColumn(cash);
+                        BetOnColumn(cash, ball, betAmount);
                         break;
 
                     case "f":
-                        betAmount = BetOnDozen(cash);
+                        BetOnDozen(cash, ball, betAmount);
                         break;
 
                     case "q":
@@ -778,7 +778,7 @@ namespace TextBasedRoulette
             while (!ValidChoice)
             {
                 Console.Write("Even or odd?: ");
-                oddity = Console.ReadLine();
+                oddity = Console.ReadLine().ToLower().Trim();
 
                 switch (oddity)
                 {
@@ -895,7 +895,7 @@ namespace TextBasedRoulette
             while (!ValidChoice)
             {
                 Console.Write("Red or Black?: ");
-                color = Console.ReadLine();
+                color = Console.ReadLine().ToLower().Trim();
 
                 switch (color)
                 {
@@ -1021,7 +1021,7 @@ namespace TextBasedRoulette
             while (!ValidChoice)
             {
                 Console.Write("first or second?: ");
-                half = Console.ReadLine();
+                half = Console.ReadLine().ToLower().Trim();
 
                 switch (half)
                 {
@@ -1130,54 +1130,353 @@ namespace TextBasedRoulette
             return half;
         }
 
-        public static string BetOnColumn(int cash)
+        public static string BetOnColumn(int cash, int ball, int betAmount)
         {
-        string column;
-        int betAmount;
+            int[] first = new int[] { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
+            int[] second = new int[] { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
+            int[] third = new int[] { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
+            string column = "";
+            int total;
+            const int ratio = 2;
+            bool ValidChoice = false;
+            bool ValidBetAmount = false;
 
-        DisplayScreenHeader("Bet on a column");
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
 
-        Console.WriteLine();
-        Console.Write("How much would you like to bet?: ");
-        int.TryParse(Console.ReadLine(), out betAmount);
+            DisplayScreenHeader("Bet on first, second or third column");
+            Console.WriteLine();
 
-        Console.WriteLine();
-        Console.Write("First, second, or third?: ");
-        column = Console.ReadLine();
+            while (!ValidChoice)
+            {
+                Console.Write("first, second, or third?: ");
+                column = Console.ReadLine().ToLower().Trim();
 
-        Console.WriteLine();
-        Console.WriteLine($"You are betting {betAmount:C} on the {column} column.");
+                switch (column)
+                {
+                    case "first":
+                        ValidChoice = true;
 
-        cash = cash - betAmount;
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
 
-        DisplayContinuePrompt();
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
 
-        return column;
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {column} column.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (first.Contains(ball))
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "second":
+                        ValidChoice = true;
+
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
+
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {column} column.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (second.Contains(ball))
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Your total betting pool is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "third":
+                        ValidChoice = true;
+
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
+
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {column} column.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (third.Contains(ball))
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid. Please choose \"first\", \"second\", or \"third\"");
+                        break;
+                }
+            }
+
+            DisplayContinuePrompt();
+
+            return column;
         }
 
-        public static int BetOnDozen(int cash)
+        public static string BetOnDozen(int cash, int ball, int betAmount)
         {
-        string dozen;
-        int betAmount;
+            string dozen = "";
+            int total;
+            const int ratio = 2;
+            bool ValidChoice = false;
+            bool ValidBetAmount = false;
 
-        DisplayScreenHeader("Bet on a dozen");
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
 
-        Console.WriteLine();
-        Console.Write("How much would you like to bet?: ");
-        int.TryParse(Console.ReadLine(), out betAmount);
+            DisplayScreenHeader("Bet on first half or second half");
+            Console.WriteLine();
 
-        Console.WriteLine();
-        Console.Write("first, second, or third?: ");
-        dozen = Console.ReadLine();
+            while (!ValidChoice)
+            {
+                Console.Write("first or second?: ");
+                dozen = Console.ReadLine().ToLower().Trim();
 
-        Console.WriteLine();
-        Console.WriteLine($"You are betting {betAmount:C} on the {dozen} dozen.");
+                switch (dozen)
+                {
+                    case "first":
+                        ValidChoice = true;
 
-        cash = cash - betAmount;
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
 
-        DisplayContinuePrompt();
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
 
-        return betAmount;
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {dozen} dozen.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (ball > 0 && ball < 13)
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "second":
+                        ValidChoice = true;
+
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
+
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {dozen} dozen.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (ball > 12 && ball < 25)
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Your total betting pool is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "third":
+                        ValidChoice = true;
+
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
+
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {dozen} dozen.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (ball > 12 && ball < 25)
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Your total betting pool is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid. Please choose \"first\", \"second\", or \"third\"");
+                        break;
+                }
+            }
+
+            DisplayContinuePrompt();
+
+            return dozen;
         }
 
         #endregion
