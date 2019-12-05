@@ -572,7 +572,7 @@ namespace TextBasedRoulette
                 Console.WriteLine("a) Bet on a specific number - WIP");
                 Console.WriteLine("b) Bet on oddity");
                 Console.WriteLine("c) Bet on color");
-                Console.WriteLine("d) Bet on half - WIP");
+                Console.WriteLine("d) Bet on half");
                 Console.WriteLine("e) Bet on column - WIP");
                 Console.WriteLine("f) Bet on dozen - WIP");
                 Console.WriteLine("q) Back to Main Menu");
@@ -596,7 +596,7 @@ namespace TextBasedRoulette
                         break;
 
                     case "d":
-                        BetOnHalf(cash);
+                        BetOnHalf(cash, ball, betAmount);
                         break;
 
                     case "e":
@@ -1004,29 +1004,130 @@ namespace TextBasedRoulette
             return color;
         }
 
-        public static string BetOnHalf(int cash)
+        public static string BetOnHalf(int cash, int ball, int betAmount)
         {
-        string half;
-        int betAmount;
+            string half = "";
+            int total;
+            const int ratio = 2;
+            bool ValidChoice = false;
+            bool ValidBetAmount = false;
 
-        DisplayScreenHeader("Bet on first half or second half");
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
 
-        Console.WriteLine();
-        Console.Write("How much would you like to bet?: ");
-        int.TryParse(Console.ReadLine(), out betAmount);
+            DisplayScreenHeader("Bet on first half or second half");
+            Console.WriteLine();
 
-        Console.WriteLine();
-        Console.Write("Which half? (first or second): ");
-        half = Console.ReadLine();
+            while (!ValidChoice)
+            {
+                Console.Write("first or second?: ");
+                half = Console.ReadLine();
 
-        Console.WriteLine();
-        Console.WriteLine($"You are betting {betAmount:C} on the {half} half.");
+                switch (half)
+                {
+                    case "first":
+                        ValidChoice = true;
 
-        cash = cash - betAmount;
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
 
-        DisplayContinuePrompt();
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
 
-        return half;
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {half} half.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (ball < 19)
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    case "second":
+                        ValidChoice = true;
+
+                        while (!ValidBetAmount)
+                        {
+                            Console.WriteLine();
+                            Console.Write("How much would you like to bet?: ");
+
+                            if (int.TryParse(Console.ReadLine(), out betAmount))
+                            {
+                                ValidBetAmount = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Not a valid number. Try again.");
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine($"You are betting {betAmount:C} on the {half} half.");
+
+                        DisplayContinuePrompt();
+
+                        DisplayScreenHeader("The results are in!");
+
+                        if (ball >= 19)
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash + ratio * betAmount;
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Your total betting pool is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = cash - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid. Please choose \"first\" or \"second\"");
+                        break;
+                }
+            }
+
+            DisplayContinuePrompt();
+
+            return half;
         }
 
         public static string BetOnColumn(int cash)
