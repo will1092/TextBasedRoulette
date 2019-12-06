@@ -413,7 +413,7 @@ namespace TextBasedRoulette
                 Console.WriteLine("b) Add Money to Pool");
                 Console.WriteLine("c) Place Bet - WIP");
                 //Console.WriteLine("d) Spin the Wheel - WIP");
-                Console.WriteLine("f) Collect (Save Money to file) - WIP");
+                //Console.WriteLine("f) Collect (Save Money to file) - WIP");
                 Console.WriteLine("q) Quit");
                 Console.Write("Enter Choice: ");
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
@@ -439,7 +439,7 @@ namespace TextBasedRoulette
                         //ball = SpinTheWheel(betAmount);
                         //break;
 
-                    case "f":
+                    //case "f":
 
                         break;
 
@@ -533,12 +533,32 @@ namespace TextBasedRoulette
         public static int DollarsToChips(int cash)
         {
             int total;
-            int cashToAdd;
+            int cashToAdd = 0;
+            bool ValidNumber = false;
 
             DisplayScreenHeader("Add more money to the table.");
 
-            Console.Write("How much money would you like to add? (whole dollars only) ");
-            cashToAdd = int.Parse(Console.ReadLine());       /// todo - Check for int, if not give feedback and loop
+            while (!ValidNumber)
+            {
+                Console.WriteLine();
+                Console.Write("How much money would you like to add? (whole dollars only) ");
+
+                if (int.TryParse(Console.ReadLine(), out cashToAdd))
+                {
+                    if (cashToAdd > 0)
+                    {
+                        ValidNumber = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Number cannot be negative. Try again.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Not a valid number. Try again.");
+                }
+            }
                                                              /// todo - Check for positive number, if not give feedback and loop
             total = cash + cashToAdd;
 
@@ -569,7 +589,7 @@ namespace TextBasedRoulette
                 //
                 // get the user's menu choice
                 //
-                Console.WriteLine("a) Bet on a specific number - WIP");
+                Console.WriteLine("a) Bet on a specific number");
                 Console.WriteLine("b) Bet on oddity");
                 Console.WriteLine("c) Bet on color");
                 Console.WriteLine("d) Bet on half");
