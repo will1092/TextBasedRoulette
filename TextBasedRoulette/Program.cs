@@ -585,7 +585,7 @@ namespace TextBasedRoulette
                 switch (menuChoice)
                 {
                     case "a":
-                        BetOnNumber(cash);
+                        BetOnNumber(cash, ball, betAmount);
                         break;
 
                     case "b":
@@ -737,30 +737,88 @@ namespace TextBasedRoulette
 
         #region PLACEBET() METHODS
 
-        public static int BetOnNumber(int cash)
+        public static int BetOnNumber(int cash, int ball, int betAmount)
         {
-            int bet;
-            int betAmount;
-            
-            DisplayScreenHeader("Bet on a number");
+            int total;
+            int number = 0;
+            const int ratio = 2;
+            bool ValidChoice = false;
+            bool ValidBetAmount = false;
+
+            Random rnd = new Random();
+            ball = rnd.Next(1, 37);
+
+            DisplayScreenHeader("Which number would you like to bet on?");
+
+            while (!ValidChoice)
+            {
+                Console.Write("Choose a number (1-36): ");
+                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out number))
+                {
+                    if (number > 0 && number < 37)
+                    {
+                        ValidChoice = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a valid number. Please choose a number between 1 and 36.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Try again.");
+                }
+            }
+                while (!ValidBetAmount)
+                {
+                    Console.WriteLine();
+                    Console.Write("How much would you like to bet?: ");
+
+                    if (int.TryParse(Console.ReadLine(), out betAmount))
+                    {
+                        ValidBetAmount = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a valid number. Try again.");
+                    }
+                }
 
             Console.WriteLine();
-            Console.Write("How much would you like to bet?: ");
-            int.TryParse(Console.ReadLine(), out betAmount);
+            Console.WriteLine($"You are betting {betAmount:C} on {number}.");
 
-            Console.WriteLine();
-            Console.Write("Place bet (1-36): ");
-            int.TryParse(Console.ReadLine(), out bet);
+            DisplayContinuePrompt();
 
-            Console.WriteLine();
-            Console.WriteLine($"You are betting {betAmount:C} on number {bet}.");
+            DisplayScreenHeader("The results are in!");
+
+            if (ball == number)
+            {
+                Console.WriteLine($"\t The ball landed on {ball}");
+                total = cash + ratio * betAmount;
+
+                Console.WriteLine();
+                Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+
+                Console.WriteLine();
+                Console.WriteLine($"Your new total is now {total:C}");
+            }
+            else
+            {
+                Console.WriteLine($"\t The ball landed on {ball}");
+                total = cash - betAmount;
+                Console.WriteLine($"Too bad.");
+
+                Console.WriteLine();
+                Console.WriteLine($"Your new total is now {total:C}");
+            }
 
             cash = cash - betAmount;
 
             DisplayContinuePrompt();
-            return bet;
-        }
 
+            return number;
+        }
+        
         public static string BetOnOddity(int cash, int ball, int betAmount)
         {
             string oddity = "";
