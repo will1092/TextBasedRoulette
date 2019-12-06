@@ -761,7 +761,7 @@ namespace TextBasedRoulette
         {
             int total;
             int number = 0;
-            const int ratio = 2;
+            const int ratio = 35;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -1215,7 +1215,7 @@ namespace TextBasedRoulette
             int[] third = new int[] { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
             string column = "";
             int total;
-            const int ratio = 2;
+            const int ratio = 3;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -1388,7 +1388,7 @@ namespace TextBasedRoulette
         {
             string dozen = "";
             int total;
-            const int ratio = 2;
+            const int ratio = 3;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
