@@ -759,7 +759,7 @@ namespace TextBasedRoulette
 
         public static int BetOnNumber(int cash, int ball, int betAmount)
         {
-            int total;
+            int total = 0;
             int number = 0;
             const int ratio = 35;
             bool ValidChoice = false;
@@ -836,13 +836,13 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return number;
+            return total;
         }
         
-        public static string BetOnOddity(int cash, int ball, int betAmount)
+        public static int BetOnOddity(int cash, int ball, int betAmount)
         {
             string oddity = "";
-            int total;
+            int total = 0;
             const int ratio = 2;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
@@ -951,13 +951,13 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return oddity;
+            return total;
         }
 
-        public static string BetOnColor(int cash, int ball, int betAmount)
+        public static int BetOnColor(int cash, int ball, int betAmount)
         {
             string color = "";
-            int total;
+            int total = 0;
             const int ratio = 2;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
@@ -1079,13 +1079,13 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return color;
+            return total;
         }
 
-        public static string BetOnHalf(int cash, int ball, int betAmount)
+        public static int BetOnHalf(int cash, int ball, int betAmount)
         {
             string half = "";
-            int total;
+            int total = 0;
             const int ratio = 2;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
@@ -1205,16 +1205,16 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return half;
+            return total;
         }
 
-        public static string BetOnColumn(int cash, int ball, int betAmount)
+        public static int BetOnColumn(int cash, int ball, int betAmount)
         {
             int[] first = new int[] { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
             int[] second = new int[] { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
             int[] third = new int[] { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
             string column = "";
-            int total;
+            int total = 0;
             const int ratio = 3;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
@@ -1381,13 +1381,13 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return column;
+            return total;
         }
 
-        public static string BetOnDozen(int cash, int ball, int betAmount)
+        public static int BetOnDozen(int cash, int ball, int betAmount)
         {
             string dozen = "";
-            int total;
+            int total = 0;
             const int ratio = 3;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
@@ -1554,7 +1554,7 @@ namespace TextBasedRoulette
 
             DisplayContinuePrompt();
 
-            return dozen;
+            return total;
         }
 
         #endregion
