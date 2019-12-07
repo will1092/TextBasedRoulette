@@ -19,12 +19,13 @@ namespace TextBasedRoulette
     {
         static void Main(string[] args)
         {
+            int total = 0;
 
             SetTheme();
 
             //Combinations();
 
-            DisplayMainMenu();
+            DisplayMainMenu(total);
 
             DisplayContinuePrompt();
         }
@@ -392,11 +393,10 @@ namespace TextBasedRoulette
 
         //}
 
-        private static void DisplayMainMenu()
+        private static void DisplayMainMenu(int total)
         {
             string menuChoice;
             bool quitApplication = false;
-            int cash = 0;
             int cashToAdd;
             int betAmount = 0;
             int ball;
@@ -415,7 +415,13 @@ namespace TextBasedRoulette
                 //Console.WriteLine("d) Spin the Wheel - WIP");
                 //Console.WriteLine("f) Collect (Save Money to file) - WIP");
                 Console.WriteLine("q) Quit");
+
+                Console.WriteLine();                
+                Console.WriteLine($"Your total is {total:C}");
+
+                Console.WriteLine();
                 Console.Write("Enter Choice: ");
+
                 menuChoice = Console.ReadKey().Key.ToString().ToLower().Trim();
 
                 //
@@ -428,11 +434,11 @@ namespace TextBasedRoulette
                         break;
 
                     case "b":
-                        cashToAdd = DollarsToChips(cash);
-                        cash = cash + cashToAdd;
+                        cashToAdd = DollarsToChips(total);
+                        total = total + cashToAdd;
                         break;
                     case "c":
-                        betAmount = PlaceBet(cash);
+                        total = PlaceBet(total);
                         break;
 
                     //case "d":
@@ -441,13 +447,15 @@ namespace TextBasedRoulette
 
                     //case "f":
 
-                        break;
+                        //break;
 
                     case "q":
                         quitApplication = true;
                         break;
 
                     default:
+                        Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine("\t**********************");
                         Console.WriteLine("\tPlease indicate your choice with a letter.");
                         Console.WriteLine("\t**********************");
@@ -481,7 +489,7 @@ namespace TextBasedRoulette
 
             Console.WriteLine("\t* Even/Odd,");
             Console.WriteLine("\t* Red/Black,");
-            Console.WriteLine("\t* 1-18/19-36,");
+            Console.WriteLine("\t* 1-18/19-36 (halves,");
             Console.WriteLine("\t* columns,");
             Console.WriteLine("\t* dozens");
 
@@ -530,9 +538,8 @@ namespace TextBasedRoulette
         //
         // add user input dollars onto the table
         //
-        public static int DollarsToChips(int cash)
+        public static int DollarsToChips(int total)
         {
-            int total;
             int cashToAdd = 0;
             bool ValidNumber = false;
 
@@ -545,7 +552,7 @@ namespace TextBasedRoulette
 
                 if (int.TryParse(Console.ReadLine(), out cashToAdd))
                 {
-                    if (cashToAdd > 0)
+                    if (cashToAdd >= 0)
                     {
                         ValidNumber = true;
                     }
@@ -559,8 +566,8 @@ namespace TextBasedRoulette
                     Console.WriteLine("Not a valid number. Try again.");
                 }
             }
-                                                             /// todo - Check for positive number, if not give feedback and loop
-            total = cash + cashToAdd;
+            
+            total = total + cashToAdd;
 
             Console.WriteLine($"{cashToAdd:C} has been added to your pool of betting money.");
 
@@ -574,7 +581,7 @@ namespace TextBasedRoulette
         //
         // menu system to place bets
         //
-        public static int PlaceBet(int cash)
+        public static int PlaceBet(int total)
         {
             string menuChoice;
             bool quitApplication = false;
@@ -605,26 +612,26 @@ namespace TextBasedRoulette
                 switch (menuChoice)
                 {
                     case "a":
-                        BetOnNumber(cash, ball, betAmount);
+                        total = BetOnNumber(total, ball, betAmount);
                         break;
 
                     case "b":
-                        BetOnOddity(cash, ball, betAmount);
+                        total = BetOnOddity(total, ball, betAmount);
                         break;
                     case "c":
-                        BetOnColor(cash, ball, betAmount);
+                        total = BetOnColor(total, ball, betAmount);
                         break;
 
                     case "d":
-                        BetOnHalf(cash, ball, betAmount);
+                        total = BetOnHalf(total, ball, betAmount);
                         break;
 
                     case "e":
-                        BetOnColumn(cash, ball, betAmount);
+                        total = BetOnColumn(total, ball, betAmount);
                         break;
 
                     case "f":
-                        BetOnDozen(cash, ball, betAmount);
+                        total = BetOnDozen(total, ball, betAmount);
                         break;
 
                     case "q":
@@ -642,7 +649,7 @@ namespace TextBasedRoulette
 
             } while (!quitApplication);
 
-            return betAmount;
+            return total;
         }
 
         public static int SpinTheWheel(int betAmount)
@@ -757,11 +764,10 @@ namespace TextBasedRoulette
 
         #region PLACEBET() METHODS
 
-        public static int BetOnNumber(int cash, int ball, int betAmount)
+        public static int BetOnNumber(int total, int ball, int betAmount)
         {
-            int total = 0;
             int number = 0;
-            const int ratio = 35;
+            const int ratio = 34;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -814,7 +820,7 @@ namespace TextBasedRoulette
             if (ball == number)
             {
                 Console.WriteLine($"\t The ball landed on {ball}");
-                total = cash + ratio * betAmount;
+                total = total + ratio * betAmount;
 
                 Console.WriteLine();
                 Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -825,25 +831,24 @@ namespace TextBasedRoulette
             else
             {
                 Console.WriteLine($"\t The ball landed on {ball}");
-                total = cash - betAmount;
+                total = total - betAmount;
                 Console.WriteLine($"Too bad.");
 
                 Console.WriteLine();
                 Console.WriteLine($"Your new total is now {total:C}");
             }
 
-            cash = cash - betAmount;
+            total = total - betAmount;
 
             DisplayContinuePrompt();
 
             return total;
         }
         
-        public static int BetOnOddity(int cash, int ball, int betAmount)
+        public static int BetOnOddity(int total, int ball, int betAmount)
         {
             string oddity = "";
-            int total = 0;
-            const int ratio = 2;
+            const int ratio = 1;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -888,7 +893,7 @@ namespace TextBasedRoulette
                         if ((ball % 2 == 0) || ball == 0)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -899,7 +904,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -933,7 +938,7 @@ namespace TextBasedRoulette
                         DisplayScreenHeader("The results are in!");
 
                         Console.WriteLine($"\t The ball landed on {ball}");
-                        total = cash + ratio * betAmount;
+                        total = total + ratio * betAmount;
 
                         Console.WriteLine();
                         Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -954,11 +959,10 @@ namespace TextBasedRoulette
             return total;
         }
 
-        public static int BetOnColor(int cash, int ball, int betAmount)
+        public static int BetOnColor(int total, int ball, int betAmount)
         {
             string color = "";
-            int total = 0;
-            const int ratio = 2;
+            const int ratio = 1;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
             int[] red = new int[] { 1, 3, 5, 7, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
@@ -1005,7 +1009,7 @@ namespace TextBasedRoulette
                         if (red.Contains(ball))
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1016,7 +1020,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1052,7 +1056,7 @@ namespace TextBasedRoulette
                         if (black.Contains(ball))
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1063,7 +1067,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1082,11 +1086,10 @@ namespace TextBasedRoulette
             return total;
         }
 
-        public static int BetOnHalf(int cash, int ball, int betAmount)
+        public static int BetOnHalf(int total, int ball, int betAmount)
         {
             string half = "";
-            int total = 0;
-            const int ratio = 2;
+            const int ratio = 1;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -1131,7 +1134,7 @@ namespace TextBasedRoulette
                         if (ball < 19)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1142,7 +1145,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1178,7 +1181,7 @@ namespace TextBasedRoulette
                         if (ball >= 19)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1189,7 +1192,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1208,14 +1211,13 @@ namespace TextBasedRoulette
             return total;
         }
 
-        public static int BetOnColumn(int cash, int ball, int betAmount)
+        public static int BetOnColumn(int total, int ball, int betAmount)
         {
             int[] first = new int[] { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
             int[] second = new int[] { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
             int[] third = new int[] { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
             string column = "";
-            int total = 0;
-            const int ratio = 3;
+            const int ratio = 2;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -1260,7 +1262,7 @@ namespace TextBasedRoulette
                         if (first.Contains(ball))
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1271,7 +1273,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1307,7 +1309,7 @@ namespace TextBasedRoulette
                         if (second.Contains(ball))
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1318,7 +1320,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1354,7 +1356,7 @@ namespace TextBasedRoulette
                         if (third.Contains(ball))
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1365,7 +1367,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1384,11 +1386,10 @@ namespace TextBasedRoulette
             return total;
         }
 
-        public static int BetOnDozen(int cash, int ball, int betAmount)
+        public static int BetOnDozen(int total, int ball, int betAmount)
         {
             string dozen = "";
-            int total = 0;
-            const int ratio = 3;
+            const int ratio = 2;
             bool ValidChoice = false;
             bool ValidBetAmount = false;
 
@@ -1433,7 +1434,7 @@ namespace TextBasedRoulette
                         if (ball > 0 && ball < 13)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1444,7 +1445,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1480,7 +1481,7 @@ namespace TextBasedRoulette
                         if (ball > 12 && ball < 25)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1491,7 +1492,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
@@ -1527,7 +1528,7 @@ namespace TextBasedRoulette
                         if (ball > 12 && ball < 25)
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash + ratio * betAmount;
+                            total = total + ratio * betAmount;
 
                             Console.WriteLine();
                             Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
@@ -1538,7 +1539,7 @@ namespace TextBasedRoulette
                         else
                         {
                             Console.WriteLine($"\t The ball landed on {ball}");
-                            total = cash - betAmount;
+                            total = total - betAmount;
                             Console.WriteLine($"Too bad.");
 
                             Console.WriteLine();
