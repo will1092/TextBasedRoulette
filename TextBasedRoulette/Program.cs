@@ -435,7 +435,7 @@ namespace TextBasedRoulette
 
                     case "b":
                         cashToAdd = DollarsToChips(total);
-                        total = total + cashToAdd;
+                        total =+ cashToAdd;
                         break;
                     case "c":
                         total = PlaceBet(total);
