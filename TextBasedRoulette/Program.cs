@@ -802,7 +802,14 @@ namespace TextBasedRoulette
 
                     if (int.TryParse(Console.ReadLine(), out betAmount))
                     {
-                        ValidBetAmount = true;
+                        if (betAmount <= total)
+                            {
+                                ValidBetAmount = true;
+                            }
+                        else
+                        {
+                        Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                        }
                     }
                     else
                     {
@@ -875,7 +882,14 @@ namespace TextBasedRoulette
 
                             if (int.TryParse(Console.ReadLine(), out betAmount))
                             {
-                                ValidBetAmount = true;
+                                if (betAmount <= total)
+                                {
+                                    ValidBetAmount = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                                }
                             }
                             else
                             {
@@ -991,7 +1005,14 @@ namespace TextBasedRoulette
 
                             if (int.TryParse(Console.ReadLine(), out betAmount))
                             {
-                                ValidBetAmount = true;
+                                if (betAmount <= total)
+                                {
+                                    ValidBetAmount = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                                }
                             }
                             else
                             {
@@ -1116,7 +1137,14 @@ namespace TextBasedRoulette
 
                             if (int.TryParse(Console.ReadLine(), out betAmount))
                             {
-                                ValidBetAmount = true;
+                                if (betAmount <= total)
+                                {
+                                    ValidBetAmount = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                                }
                             }
                             else
                             {
@@ -1244,7 +1272,14 @@ namespace TextBasedRoulette
 
                             if (int.TryParse(Console.ReadLine(), out betAmount))
                             {
-                                ValidBetAmount = true;
+                                if (betAmount <= total)
+                                {
+                                    ValidBetAmount = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                                }
                             }
                             else
                             {
@@ -1416,7 +1451,14 @@ namespace TextBasedRoulette
 
                             if (int.TryParse(Console.ReadLine(), out betAmount))
                             {
-                                ValidBetAmount = true;
+                                if (betAmount <= total)
+                                {
+                                    ValidBetAmount = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bet amount cannot be more than your current pool total of {total:C}.");
+                                }
                             }
                             else
                             {
