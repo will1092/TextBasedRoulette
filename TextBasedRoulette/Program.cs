@@ -411,7 +411,7 @@ namespace TextBasedRoulette
                 //
                 Console.WriteLine("a) View Rules");
                 Console.WriteLine("b) Add Money to Pool");
-                Console.WriteLine("c) Place Bet - WIP");
+                Console.WriteLine("c) Place Bet");
                 //Console.WriteLine("d) Spin the Wheel - WIP");
                 //Console.WriteLine("f) Collect (Save Money to file) - WIP");
                 Console.WriteLine("q) Quit");
