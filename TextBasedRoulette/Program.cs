@@ -951,15 +951,26 @@ namespace TextBasedRoulette
 
                         DisplayScreenHeader("The results are in!");
 
-                        Console.WriteLine($"\t The ball landed on {ball}");
-                        total = total + ratio * betAmount;
+                        if ((ball % 2 != 0))
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = total + ratio * betAmount;
 
-                        Console.WriteLine();
-                        Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
+                            Console.WriteLine();
+                            Console.WriteLine($"\t Congratulations! You won! Your payout is {ratio * betAmount:c}");
 
-                        Console.WriteLine();
-                        Console.WriteLine($"\t Your total betting pool is now {total:C}");
-                        
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\t The ball landed on {ball}");
+                            total = total - betAmount;
+                            Console.WriteLine($"Too bad.");
+
+                            Console.WriteLine();
+                            Console.WriteLine($"Your new total is now {total:C}");
+                        }
                         break;
 
                     default:
